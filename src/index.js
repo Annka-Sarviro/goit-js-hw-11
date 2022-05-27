@@ -23,8 +23,9 @@ function onSearchClick (event) {
 
     if (!query) return;
 
-    currentPage = 1;
+    page = 1;
     fetchAndRender(query);
+    Notify.success('Sorry, there are no images matching your search query. Please try again.')
     refs.formEl.reset();
 }
 
@@ -57,7 +58,7 @@ function renderList ({hits, totalHits }) {
         ({webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => 
         {
             return `<div class="photo-card">
-            <img src="${webformatURL}" alt="${query}" loading="lazy" width='120' />
+            <img src="${webformatURL}" alt="${tags}" loading="lazy" width='120' />
             <div class="info">
               <p class="info-item">
                 <b>Likes ${likes}</b>
