@@ -1,5 +1,5 @@
 {
-  "name": "parcel-project-template",
+  "name": "goit-js-hw-11",
   "version": "2.0.0",
   "description": "",
   "homepage": "https://Annka-Sarviro.github.io/goit-js-hw-11",
@@ -20,7 +20,8 @@
   "dependencies": {
     "axios": "^0.27.2",
     "modern-normalize": "^1.1.0",
-    "notiflix": "^3.2.5"
+    "notiflix": "^3.2.5",
+    "simplelightbox": "^2.10.3"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.5.0",

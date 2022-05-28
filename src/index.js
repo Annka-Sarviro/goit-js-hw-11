@@ -1,6 +1,7 @@
-
 import {fetchApi, PERPAGE} from './js/api.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 
 const refs = {
@@ -12,8 +13,11 @@ let query = '';
 let page = 1;
 let totalPages = 1;
 
+
+
 refs.formEl.addEventListener('submit', onSearchClick);
 refs.buttonEl.addEventListener('click', onLoadMoreRender)
+gallery = new SimpleLightbox('.gallery .img-link');
 
 
 function onSearchClick (event) {
@@ -41,8 +45,8 @@ async function fetchAndRender (query) {
     try {const fetchData = await fetchApi(query, page);
         if (fetchData.total === 0) {return Notify.failure("Sorry, there are no images matching your search query. Please try again.")}
         
-        renderList(fetchData);
-        
+        renderList(fetchData);       
+               
         refs.buttonEl.hidden = false;}
     catch (error) {
         console.log(error.message);
@@ -53,11 +57,12 @@ async function fetchAndRender (query) {
 function renderList ({hits, totalHits }) {
     totalPages = totalHits;
     total = totalHits;
-        const list = hits.map(
+    const list = hits.map(
         ({webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => 
-        {
-            return `<div class="photo-card">
-            <img src="${webformatURL}" alt="${tags}" loading="lazy" width='320' />
+         {return `
+         <a href="${largeImageURL}" class="img-link">
+         <div class="photo-card">
+            <img src="${webformatURL}" alt="${tags}" loading="lazy" width='320' title="Beautiful Image">
             <div class="info">
               <p class="info-item">
                 <b>Likes ${likes}</b>
@@ -72,12 +77,12 @@ function renderList ({hits, totalHits }) {
                 <b>Downloads ${downloads}</b>
               </p>
             </div>
-          </div>`
+            </div></a>`
         }
-      );
+      ).join(' ');
+      
+      refs.boxEl.insertAdjacentHTML('beforeend', list);      
     
-      refs.boxEl.insertAdjacentHTML('beforeend', list.join(' '));
-    return list;
 }
 
 function clearImgBox() {
