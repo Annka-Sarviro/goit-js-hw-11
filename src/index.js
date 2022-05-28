@@ -1,4 +1,4 @@
-import {fetchApi, PER_PAGES} from './js/api.js';
+import {fetchApi, PER_PAGE} from './js/api.js';
 
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -33,7 +33,7 @@ function onSearchClick (event) {
 function onLoadMoreRender () {
     page+=1;
     
-    if (page * PER_PAGES > totalPages) return Notify.failure("We're sorry, but you've reached the end of search results.");
+    if (page * PER_PAGE > totalPages) return Notify.failure("We're sorry, but you've reached the end of search results.");
 
     fetchAndRender(query);
 }
