@@ -1,6 +1,8 @@
 import {fetchApi, PERPAGE} from './js/api.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import SimpleLightbox from "simplelightbox";
+// import SimpleLightbox from "simplelightbox";
+import SimpleLightbox from "simplelightbox/dist/simple-lightbox.esm";
+
 import "simplelightbox/dist/simple-lightbox.min.css";
 
 
@@ -17,7 +19,7 @@ let totalPages = 1;
 
 refs.formEl.addEventListener('submit', onSearchClick);
 refs.buttonEl.addEventListener('click', onLoadMoreRender)
-gallery = new SimpleLightbox('.gallery .img-link');
+let gallery = new SimpleLightbox('.gallery .img-link');
 
 
 function onSearchClick (event) {
@@ -56,7 +58,6 @@ async function fetchAndRender (query) {
 
 function renderList ({hits, totalHits }) {
     totalPages = totalHits;
-    total = totalHits;
     const list = hits.map(
         ({webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => 
          {return `
