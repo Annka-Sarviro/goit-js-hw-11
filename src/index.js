@@ -17,24 +17,22 @@ refs.buttonEl.addEventListener('click', onLoadMoreRender)
 
 
 function onSearchClick (event) {
+  refs.buttonEl.hidden = true;
     event.preventDefault(); 
     clearImgBox();  
     query = event.currentTarget.elements.searchQuery.value;
-
     if (!query) return;
-
     page = 1;
     fetchAndRender(query);
-    
     refs.formEl.reset();
+   
 }
 
 
 function onLoadMoreRender () {
     page+=1;
-    
-    if (page * PERPAGE > totalPages) return Notify.failure("We're sorry, but you've reached the end of search results.");
 
+    if (page*PERPAGE > totalPages) return Notify.failure("We're sorry, but you've reached the end of search results.");
     fetchAndRender(query);
 }
 
@@ -44,18 +42,17 @@ async function fetchAndRender (query) {
         if (fetchData.total === 0) {return Notify.failure("Sorry, there are no images matching your search query. Please try again.")}
         
         renderList(fetchData);
+        
         refs.buttonEl.hidden = false;}
     catch (error) {
         console.log(error.message);
-    }
-        
-  
+    }   
 }
 
 
 function renderList ({hits, totalHits }) {
     totalPages = totalHits;
-    Notify.success(`Hooray! We found ${totalHits} images.`)
+    total = totalHits;
         const list = hits.map(
         ({webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => 
         {
