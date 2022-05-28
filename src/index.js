@@ -1,5 +1,5 @@
-import {fetchApi, PER_PAGE} from './js/api.js';
 
+import {fetchApi, PERPAGE} from './js/api.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
@@ -25,7 +25,7 @@ function onSearchClick (event) {
 
     page = 1;
     fetchAndRender(query);
-    Notify.success('Sorry, there are no images matching your search query. Please try again.')
+    
     refs.formEl.reset();
 }
 
@@ -33,7 +33,7 @@ function onSearchClick (event) {
 function onLoadMoreRender () {
     page+=1;
     
-    if (page * PER_PAGE > totalPages) return Notify.failure("We're sorry, but you've reached the end of search results.");
+    if (page * PERPAGE > totalPages) return Notify.failure("We're sorry, but you've reached the end of search results.");
 
     fetchAndRender(query);
 }
@@ -42,6 +42,7 @@ function onLoadMoreRender () {
 async function fetchAndRender (query) {
     try {const fetchData = await fetchApi(query, page);
         if (fetchData.total === 0) {return Notify.failure("Sorry, there are no images matching your search query. Please try again.")}
+        
         renderList(fetchData);
         refs.buttonEl.hidden = false;}
     catch (error) {
@@ -54,11 +55,12 @@ async function fetchAndRender (query) {
 
 function renderList ({hits, totalHits }) {
     totalPages = totalHits;
+    Notify.success(`Hooray! We found ${totalHits} images.`)
         const list = hits.map(
         ({webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => 
         {
             return `<div class="photo-card">
-            <img src="${webformatURL}" alt="${tags}" loading="lazy" width='120' />
+            <img src="${webformatURL}" alt="${tags}" loading="lazy" width='320' />
             <div class="info">
               <p class="info-item">
                 <b>Likes ${likes}</b>
