@@ -1,9 +1,7 @@
+import './sass/index.scss'
 import {fetchApi, PERPAGE} from './js/api.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-// import SimpleLightbox from "simplelightbox";
-import SimpleLightbox from "simplelightbox/dist/simple-lightbox.esm";
 
-import "simplelightbox/dist/simple-lightbox.min.css";
 
 
 const refs = {
@@ -15,12 +13,8 @@ let query = '';
 let page = 1;
 let totalPages = 1;
 
-
-
 refs.formEl.addEventListener('submit', onSearchClick);
-refs.buttonEl.addEventListener('click', onLoadMoreRender)
-let gallery = new SimpleLightbox('.gallery .img-link');
-
+refs.buttonEl.addEventListener('click', onLoadMoreRender);
 
 function onSearchClick (event) {
   refs.buttonEl.hidden = true;
@@ -48,7 +42,7 @@ async function fetchAndRender (query) {
         if (fetchData.total === 0) {return Notify.failure("Sorry, there are no images matching your search query. Please try again.")}
         
         renderList(fetchData);       
-               
+        
         refs.buttonEl.hidden = false;}
     catch (error) {
         console.log(error.message);
@@ -60,9 +54,8 @@ function renderList ({hits, totalHits }) {
     totalPages = totalHits;
     const list = hits.map(
         ({webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => 
-         {return `
-         <a href="${largeImageURL}" class="img-link">
-         <div class="photo-card">
+         {return
+            `<div class="photo-card">
             <img src="${webformatURL}" alt="${tags}" loading="lazy" width='320' title="Beautiful Image">
             <div class="info">
               <p class="info-item">
@@ -78,7 +71,7 @@ function renderList ({hits, totalHits }) {
                 <b>Downloads ${downloads}</b>
               </p>
             </div>
-            </div></a>`
+            </div>`
         }
       ).join(' ');
       
