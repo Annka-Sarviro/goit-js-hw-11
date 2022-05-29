@@ -54,8 +54,7 @@ function renderList ({hits, totalHits }) {
     totalPages = totalHits;
     const list = hits.map(
         ({webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => 
-         {return
-            `<div class="photo-card">
+         {return `<div class="photo-card">
             <img src="${webformatURL}" alt="${tags}" loading="lazy" width='320' title="Beautiful Image">
             <div class="info">
               <p class="info-item">
