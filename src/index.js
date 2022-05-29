@@ -1,4 +1,3 @@
-import './sass/index.scss'
 import {fetchApi, PERPAGE} from './js/api.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -19,7 +18,7 @@ refs.buttonEl.addEventListener('click', onLoadMoreRender);
 function onSearchClick (event) {
   refs.buttonEl.hidden = true;
     event.preventDefault(); 
-    clearImgBox();  
+    // clearImgBox();  
     query = event.currentTarget.elements.searchQuery.value;
     if (!query) return;
     page = 1;
@@ -70,14 +69,13 @@ function renderList ({hits, totalHits }) {
                 <b>Downloads ${downloads}</b>
               </p>
             </div>
-            </div>`
-        }
-      ).join(' ');
+            </div>`        }
+      );
       
-      refs.boxEl.insertAdjacentHTML('beforeend', list);      
+      refs.boxEl.insertAdjacentHTML('beforeend', list).join(' ');      
     
 }
 
-function clearImgBox() {
-    refs.boxEl.innerHTML = '';
-}
+// function clearImgBox() {
+//     refs.boxEl.innerHTML = '';
+// }
