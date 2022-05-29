@@ -1,6 +1,7 @@
 import {fetchApi, PERPAGE} from './js/api.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+
 const refs = {
     formEl: document.querySelector('.search-form'),
     boxEl: document.querySelector('.gallery'),
@@ -9,6 +10,7 @@ const refs = {
 let query = '';
 let page = 1;
 let totalPages = 1;
+
 
 refs.formEl.addEventListener('submit', onSearchClick);
 refs.buttonEl.addEventListener('click', onLoadMoreRender);
@@ -52,7 +54,7 @@ function renderList ({hits, totalHits }) {
     const list = hits.map(
         ({webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => 
          {return `<div class="photo-card">
-            <img src="${webformatURL}" alt="${tags}" loading="lazy" width='320' title="Beautiful Image">
+            <img src="${webformatURL}" alt="${tags}" loading="lazy" class="card-img">
             <div class="info">
               <p class="info-item">
                 <b>Likes ${likes}</b>
