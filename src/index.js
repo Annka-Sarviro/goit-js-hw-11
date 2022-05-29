@@ -1,8 +1,6 @@
 import {fetchApi, PERPAGE} from './js/api.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-
-
 const refs = {
     formEl: document.querySelector('.search-form'),
     boxEl: document.querySelector('.gallery'),
@@ -18,7 +16,7 @@ refs.buttonEl.addEventListener('click', onLoadMoreRender);
 function onSearchClick (event) {
   refs.buttonEl.hidden = true;
     event.preventDefault(); 
-    // clearImgBox();  
+    clearImgBox();  
     query = event.currentTarget.elements.searchQuery.value;
     if (!query) return;
     page = 1;
@@ -70,12 +68,12 @@ function renderList ({hits, totalHits }) {
               </p>
             </div>
             </div>`        }
-      );
+      ).join(' ');
       
-      refs.boxEl.insertAdjacentHTML('beforeend', list).join(' ');      
+      refs.boxEl.insertAdjacentHTML('beforeend', list);      
     
 }
 
-// function clearImgBox() {
-//     refs.boxEl.innerHTML = '';
-// }
+function clearImgBox() {
+    refs.boxEl.innerHTML = '';
+}

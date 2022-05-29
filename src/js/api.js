@@ -6,4 +6,4 @@ export const PERPAGE = 40;
 
 export function fetchApi (query, page) {
  return axios.get(`${URL}?key=${KEY}&q=${query}&per_page=${PERPAGE}&page=${page}&image_type=photo&orientation=horizontal&safesearch=true`)
-    .then((data) => data)};
+    .then(({data}) => data)};
